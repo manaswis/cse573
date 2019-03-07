@@ -34,9 +34,9 @@ def parse_arguments():
     parser.add_argument(
         '--action-space',
         type=int,
-        default=6,
+        default=7,  # Organick modified
         metavar='AS',
-        help='# of actions (default: 5)')
+        help='# of actions (default: 7)') # Organick modified
     parser.add_argument(
         '--workers',
         type=int,
