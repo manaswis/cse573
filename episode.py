@@ -33,6 +33,8 @@ class Episode:
         self.actions_list = [{'action':a} for a in BASIC_ACTIONS]
         self.actions_taken = []
 
+        self.whathaveIseen = set()  # Organick modified
+
     @property
     def environment(self):
         return self._env
@@ -65,6 +67,15 @@ class Episode:
         reward = STEP_PENALTY 
         done = False
         action_was_successful = self.environment.last_action_success
+
+        # Organick modified
+        if action['action'] == 'FindMore':
+            for target in self.target:
+                if target in visible_objects:
+                    if target not in self.whathaveIseen:
+                        reward += INTERMEDIATE_REWARD
+                        self.whathaveIseen.add(target)
+
 
         if action['action'] == 'Done':
             done = True
@@ -99,5 +110,6 @@ class Episode:
         self.success = False
         self.cur_scene = scene
         self.actions_taken = []
-        
+        self.whathaveIseen = set()  # Organick modified
+
         return True
