@@ -73,9 +73,11 @@ class Model(torch.nn.Module):
 
         x = x.view(x.size(0), -1)
         #return x
+        print additional_state_info
+        print self.augmented_linear(additional_state_info)
         additional_score = self.augmented_linear(additional_state_info)  # Organick
         augmented_x = self.augmented_combination(torch.cat([x, additional_score]))  # Organick
-        return augmented_x
+        return augmented_x  # Organick
 
     def a3clstm(self, x, hidden):
         hx, cx = self.lstm(x, hidden)
