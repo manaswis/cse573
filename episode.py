@@ -41,8 +41,8 @@ class Episode:
         return self._env
 
     def state_for_agent(self):
-        return self.environment.current_frame
-
+        #return self.environment.current_frame  # Organick
+        return self.environment.current_frame, self.memory  # Organick
     def step(self, action_as_int):
         action = self.actions_list[action_as_int]
         self.actions_taken.append(action)
