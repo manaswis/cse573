@@ -117,7 +117,7 @@ class Episode:
             self._env.reset(scene)
 
         # For now, single target.
-        self.target = 'Tomato'
+        self.target = ['Tomato', 'Bowl']  # Organick modified
         self.success = False
         self.cur_scene = scene
         self.actions_taken = []
