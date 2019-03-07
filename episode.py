@@ -34,6 +34,7 @@ class Episode:
         self.actions_taken = []
 
         self.whathaveIseen = set()  # Organick modified
+        self.memory = []  # Organick modified
 
     @property
     def environment(self):
@@ -77,6 +78,8 @@ class Episode:
                     if target not in self.whathaveIseen:
                         reward += INTERMEDIATE_REWARD
                         self.whathaveIseen.add(target)
+                        list_of_targets = self.target
+                        self.memory[list_of_targets.index(target)] = 1
 
 
         if action['action'] == 'Done':
@@ -122,5 +125,6 @@ class Episode:
         self.cur_scene = scene
         self.actions_taken = []
         self.whathaveIseen = set()  # Organick modified
+        self.memory = len(self.target)*[0]  # Organick
 
         return True

@@ -41,7 +41,12 @@ class A3CAgent:
 
     def eval_at_state(self):
         model_input = ModelInput()
-        model_input.state = self.preprocess_frame(self.episode.state_for_agent())
+
+        state, memory = self.episode.state_for_agent()  # Organick
+        model_input.memory = memory  # Organick
+        model_input.state = self.preprocess_frame(state)  # Organick
+        #model_input.state = self.preprocess_frame(self.episode.state_for_agent())
+
         model_input.hidden = self.hidden
         model_output = self.model.forward(model_input)
         return model_output
