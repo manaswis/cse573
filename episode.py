@@ -81,9 +81,18 @@ class Episode:
 
         if action['action'] == 'Done':
             done = True
+
             objects = self._env.last_event.metadata['objects']
             visible_objects = [o['objectType'] for o in objects if o['visible']]
-            if self.target in visible_objects:
+            for target in self.target:
+                if target in visible_objects:
+                    if target not in self.whathaveIseen:
+                        self.whathaveIseen.add(target)
+                        reward += INTERMEDIATE_REWARD
+            #objects = self._env.last_event.metadata['objects']
+            #visible_objects = [o['objectType'] for o in objects if o['visible']]
+            #if self.target in visible_objects:
+            if len(self.whathaveIseen) == len(self.target):  # Organick modified
                 reward += GOAL_SUCCESS_REWARD
                 self.success = True
 
