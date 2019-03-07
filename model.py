@@ -36,7 +36,7 @@ class Model(torch.nn.Module):
         self.maxp4 = nn.MaxPool2d(2, 2)
 
         # Organick
-        self.additional_state_size = 64  # Organick
+        self.additional_state_size = 2 # Organick
         self.augmented_hidden_size = 1  # Organick
         self.augmented_linear = nn.Linear(self.additional_state_size, self.augmented_hidden_size)  # Organick
         self.augmented_combination = nn.Linear(1024 + self.augmented_hidden_size, 1024)  # Organick
