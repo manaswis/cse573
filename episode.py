@@ -43,6 +43,7 @@ class Episode:
     def state_for_agent(self):
         #return self.environment.current_frame  # Organick
         return self.environment.current_frame, self.memory  # Organick
+
     def step(self, action_as_int):
         action = self.actions_list[action_as_int]
         self.actions_taken.append(action)
@@ -79,7 +80,7 @@ class Episode:
                         reward += INTERMEDIATE_REWARD
                         self.whathaveIseen.add(target)
                         list_of_targets = self.target
-                        self.memory[list_of_targets.index(target)] = 1
+                        self.memory.append(1)
 
 
         if action['action'] == 'Done':
@@ -125,6 +126,6 @@ class Episode:
         self.cur_scene = scene
         self.actions_taken = []
         self.whathaveIseen = set()  # Organick modified
-        self.memory = len(self.target)*[0]  # Organick
+        self.memory = []  # Organick
 
         return True
