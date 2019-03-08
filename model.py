@@ -37,7 +37,7 @@ class Model(torch.nn.Module):
 
         # Organick
         self.additional_state_size = 2  # Organick  # want to be the width of additional_state_info
-        self.augmented_hidden_size = 32  # Organick
+        self.augmented_hidden_size = 300  # Organick
         self.augmented_linear = nn.Linear(self.additional_state_size, self.augmented_hidden_size)  # Organick
         self.augmented_combination = nn.Linear(1024 + self.augmented_hidden_size, 1024)  # Organick
         #self.augmented_linear.bias.data.fill_(0)  # Organick
