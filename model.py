@@ -73,8 +73,8 @@ class Model(torch.nn.Module):
 
         x = x.view(x.size(0), -1)
         #return x
-        additional_score = self.augmented_linear(torch.FloatTensor(additional_state_info).unsqueeze(0).cuda())  # Organick
-        augmented_x = self.augmented_combination(torch.cat([x, additional_score]))  # Organick
+        additional_score = self.augmented_linear(torch.FloatTensor(additional_state_info).unsqueeze(0).cuda())  # Organick ip
+        augmented_x = self.augmented_combination(torch.cat([x, additional_score], dim=1))  # Organick ip
         return augmented_x  # Organick
 
     def a3clstm(self, x, hidden):
