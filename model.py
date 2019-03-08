@@ -36,12 +36,12 @@ class Model(torch.nn.Module):
         self.maxp4 = nn.MaxPool2d(2, 2)
 
         # Organick
-        self.additional_state_size = 1 # Organick
-        self.augmented_hidden_size = 2 # Organick
+        self.additional_state_size = 32  # Organick
+        self.augmented_hidden_size = 32  # Organick
         self.augmented_linear = nn.Linear(self.additional_state_size, self.augmented_hidden_size)  # Organick
         self.augmented_combination = nn.Linear(1024 + self.augmented_hidden_size, 1024)  # Organick
-        self.augmented_linear.bias.data.fill_(0)  # Organick
-        self.augmented_combination.bias.data.fill_(0)  # Organick
+        #self.augmented_linear.bias.data.fill_(0)  # Organick
+        #self.augmented_combination.bias.data.fill_(0)  # Organick
 
         self.lstm = nn.LSTMCell(1024, args.hidden_state_sz)
         self.critic_linear = nn.Linear(args.hidden_state_sz, 1)
