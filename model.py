@@ -36,10 +36,10 @@ class Model(torch.nn.Module):
         self.maxp4 = nn.MaxPool2d(2, 2)
 
         # Organick
-        self.additional_state_size = 2  # Organick  # want to be the width of additional_state_info
-        self.augmented_hidden_size = 32  # Organick
-        self.augmented_linear = nn.Linear(self.additional_state_size, self.augmented_hidden_size)  # Organick
-        self.augmented_combination = nn.Linear(1024 + self.augmented_hidden_size, 1024)  # Organick
+        #self.additional_state_size = 2  # Organick  # want to be the width of additional_state_info
+        #self.augmented_hidden_size = 32  # Organick
+        #self.augmented_linear = nn.Linear(self.additional_state_size, self.augmented_hidden_size)  # Organick
+        #self.augmented_combination = nn.Linear(1024 + self.augmented_hidden_size, 1024)  # Organick
         #self.augmented_linear.bias.data.fill_(0)  # Organick
         #self.augmented_combination.bias.data.fill_(0)  # Organick
 
@@ -65,17 +65,18 @@ class Model(torch.nn.Module):
 
         self.train()
 
-    def embedding(self, state, additional_state_info):
+    #def embedding(self, state, additional_state_info):
+    def embedding(self, state):
         x = F.relu(self.maxp1(self.conv1(state)))
         x = F.relu(self.maxp2(self.conv2(x)))
         x = F.relu(self.maxp3(self.conv3(x)))
         x = F.relu(self.maxp4(self.conv4(x)))
 
         x = x.view(x.size(0), -1)
-        #return x
-        additional_score = self.augmented_linear(torch.FloatTensor(additional_state_info).unsqueeze(0).cuda())  # Organick ip
-        augmented_x = self.augmented_combination(torch.cat([x, additional_score], dim=1))  # Organick ip
-        return augmented_x  # Organick
+        return x
+        # additional_score = self.augmented_linear(torch.FloatTensor(additional_state_info).unsqueeze(0).cuda())  # Organick ip
+        # augmented_x = self.augmented_combination(torch.cat([x, additional_score], dim=1))  # Organick ip
+        # return augmented_x  # Organick
 
     def a3clstm(self, x, hidden):
         hx, cx = self.lstm(x, hidden)
@@ -87,7 +88,7 @@ class Model(torch.nn.Module):
     def forward(self, model_input):
         state = model_input.state
         (hx, cx) = model_input.hidden
-        #x = self.embedding(state)
-        x = self.embedding(state, model_input.memory)  # Organick
+        x = self.embedding(state)
+        #x = self.embedding(state, model_input.memory)  # Organick
         actor_out, critic_out, (hx, cx) = self.a3clstm(x, (hx, cx))
         return ModelOutput(policy=actor_out, value=critic_out, hidden=(hx, cx))

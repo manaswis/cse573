@@ -34,15 +34,15 @@ class Episode:
         self.actions_taken = []
 
         self.whathaveIseen = set()  # Organick modified
-        self.memory = []  # Organick modified
+        #self.memory = []  # Organick modified
 
     @property
     def environment(self):
         return self._env
 
     def state_for_agent(self):
-        #return self.environment.current_frame  # Organick
-        return self.environment.current_frame, self.memory  # Organick
+        return self.environment.current_frame  # Organick
+        #return self.environment.current_frame, self.memory  # Organick
 
     def step(self, action_as_int):
         action = self.actions_list[action_as_int]
@@ -79,10 +79,10 @@ class Episode:
                     if target not in self.whathaveIseen:
                         reward += INTERMEDIATE_REWARD
                         self.whathaveIseen.add(target)
-                        list_of_targets = self.target
-                        for i in range(len(self.memory)):
-                            if self.memory[i] == 0:
-                                self.memory[i] = 1
+                        # list_of_targets = self.target
+                        # for i in range(len(self.memory)):
+                        #     if self.memory[i] == 0:
+                        #         self.memory[i] = 1
                         #self.memory[list_of_targets.index(target)] = 1
 
 
@@ -129,6 +129,6 @@ class Episode:
         self.cur_scene = scene
         self.actions_taken = []
         self.whathaveIseen = set()  # Organick modified
-        self.memory = len(self.target)*[0]  # Organick
+        #self.memory = len(self.target)*[0]  # Organick
 
         return True
