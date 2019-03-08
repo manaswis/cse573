@@ -80,7 +80,10 @@ class Episode:
                         reward += INTERMEDIATE_REWARD
                         self.whathaveIseen.add(target)
                         list_of_targets = self.target
-                        self.memory.append(1)
+                        for i in range(len(self.memory)):
+                            if self.memory[i] == 0:
+                                self.memory[i] = 1
+                        #self.memory[list_of_targets.index(target)] = 1
 
 
         if action['action'] == 'Done':
@@ -126,6 +129,6 @@ class Episode:
         self.cur_scene = scene
         self.actions_taken = []
         self.whathaveIseen = set()  # Organick modified
-        self.memory = []  # Organick
+        self.memory = len(self.target)*[0]  # Organick
 
         return True
