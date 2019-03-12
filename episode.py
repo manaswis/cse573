@@ -72,17 +72,18 @@ class Episode:
 
         # Organick modified
         if action['action'] == 'FindMore':
-            objects = self._env.last_event.metadata['objects']
-            visible_objects = [o['objectType'] for o in objects if o['visible']]
-            for target in self.target:
-                if target in visible_objects:
-                    if target not in self.whathaveIseen:
-                        reward += INTERMEDIATE_REWARD
-                        self.whathaveIseen.add(target)
-                        list_of_targets = self.target
-                        for i in range(len(self.memory)):
-                            if self.memory[i] == 0:
-                                self.memory[i] = 1
+            pass
+            # objects = self._env.last_event.metadata['objects']
+            # visible_objects = [o['objectType'] for o in objects if o['visible']]
+            # for target in self.target:
+            #     if target in visible_objects:
+            #         if target not in self.whathaveIseen:
+            #             reward += INTERMEDIATE_REWARD
+            #             self.whathaveIseen.add(target)
+            #             list_of_targets = self.target
+            #             for i in range(len(self.memory)):
+            #                 if self.memory[i] == 0:
+            #                     self.memory[i] = 1
                         #self.memory[list_of_targets.index(target)] = 1
 
 
